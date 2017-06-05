@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">NEWPATH</string>
+    <string name="teste">Teste Roda da Vida</string>
+    <!--Qualidade de Vida-->
+    <string name="qualidade_de_vida">Qualdiade de Vida</string>
+    <string name="criatividade">Criatividade Hobbies e Diversão</string>
+    <string name="plenitude">Plenitude e Felicidade</string>
+    <string name="espiritualidade">Espiritualdiade</string>
+    <!--Pessoal-->
+    <string name="pessoal">Pessoal</string>
+    <string name="saude">Saúde e Disposição</string>
+    <string name="desenvolvimento">Densenvolvimento Intelectual</string>
+    <string name="equilibrio_emocional">Esquilíbrio Emocional</string>
+    <!--Profissional-->
+    <string name="profissional">Profissional</string>
+    <string name="realizacao">Realização e Propósito</string>
+    <string name="financeiro">Recurso Financeiro</string>
+    <string name="contribuicao">Contribuição Social</string>
+    <!--Relacionamentos-->
+    <string name="relacionamento">Relacionamento</string>
+    <string name="familia">Família</string>
+    <string name="amoroso">Desenvolvimento Amoroso</string>
+    <string name="vida_social">Vida Social</string>
+    <!--Funcionais -->
+    <string name="singin">SING IN</string>
+    <string name="singup">SING UP</string>
+    <string name="loginFace">Login With Facebook</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="facebook_app_id">377031936026772</string>
+
+</resources>
