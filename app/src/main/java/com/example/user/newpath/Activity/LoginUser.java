@@ -39,7 +39,7 @@ public class LoginUser extends AppCompatActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnCadastrar = (Button) findViewById(R.id.btnCadastrar);
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+//        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,11 +76,11 @@ public class LoginUser extends AppCompatActivity {
         });
     }
     private  void abrirTelaPrincipal(){
-        Intent intentTelaPrincioal = new Intent(LoginUser.this, MainActivity.class );
+        Intent intentTelaPrincioal = new Intent(LoginUser.this, NavigationMenu.class );
         startActivity(intentTelaPrincioal);
     }
     private void regitraNewUser(){
-        Intent registraUser = new Intent(LoginUser.this, OptionLogin.class);
+        Intent registraUser = new Intent(LoginUser.this, NavigationMenu.class);
         startActivity(registraUser);
     }
     public void cleanField(){
