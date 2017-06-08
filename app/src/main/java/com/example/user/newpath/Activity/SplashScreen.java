@@ -23,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
         }, 3000);
     }
     private void chamarLogin(){
-        Intent toCadastro = new Intent(this, MainActivity.class);
+        Intent toCadastro = new Intent(this, LoginUser.class);
         startActivity(toCadastro);
         overridePendingTransition(R.anim.fade_in, 0);
 

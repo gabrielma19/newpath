@@ -31,5 +31,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="facebook_app_id">377031936026772</string>
+    <string name="fb_login_protocol_scheme">fb377031936026772</string>
 
 </resources>

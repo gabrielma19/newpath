@@ -61,93 +61,78 @@ public class RegisterEmail extends AppCompatActivity {
             }
         });
     }
-
     private void cadastrarUsuario(){
-
         if(edtSenha.getText().toString().equals("") || edtSenha.getText().toString().length() < 6){
             Toast.makeText(RegisterEmail.this, "Digite uma senha valida", Toast.LENGTH_SHORT).show();
-
+        }else if(edtEmail.getText().toString().equals("")) {
+            Toast.makeText(this, "Digite um email valido", Toast.LENGTH_SHORT).show();
         }else{
-            usuario.setEmail(edtEmail.getText().toString());
-            usuario.setSenha(edtSenha.getText().toString());
+                usuario.setEmail(edtEmail.getText().toString());
+                usuario.setSenha(edtSenha.getText().toString());
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(RegisterEmail.this, "Usuario Cadastrado com Sucesso", Toast.LENGTH_SHORT).show();
+                            String identificadorUsuario = null;
+                            try {
+                                identificadorUsuario = MD5Custom.codificarMd5(usuario.getSenha());
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            }
+                            FirebaseUser usuarioFirebase = task.getResult().getUser();
+                            usuario.setSenha(identificadorUsuario);
+                            Preferences preferencias = new Preferences(RegisterEmail.this);
+                            preferencias.salvarUsuarioPref(identificadorUsuario, usuario.getEmail());
+                            insert();
+                        }else{
+                            String exception = "";
+                            try{
+                                throw task.getException();
+                            }catch(FirebaseAuthWeakPasswordException e){
 
-//            Log.i(usuario.getEmail(), usuario.getSenha());
+                                exception = "Senha muito fraca, Digite novamente";
 
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                            }catch(FirebaseAuthInvalidCredentialsException e){
 
-                    if(task.isSuccessful()){
+                                exception = "Email digitado invalido";
 
-                        Toast.makeText(RegisterEmail.this, "Usuario Cadastrado com Sucesso", Toast.LENGTH_SHORT).show();
+                            }
+                            catch(FirebaseAuthUserCollisionException e){
 
-                        String identificadorUsuario = null;
-                        try {
-                            identificadorUsuario = MD5Custom.codificarMd5(usuario.getSenha());
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
+                                exception = "Email já cadastrado no sistema";
+
+                            }catch (Exception e){
+                                exception="Erro ao efetuar o cadastro";
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(RegisterEmail.this, "Erro " + exception, Toast.LENGTH_SHORT).show();
                         }
-                        FirebaseUser usuarioFirebase = task.getResult().getUser();
-                        usuario.setSenha(identificadorUsuario);
-
-                        Preferences preferencias = new Preferences(RegisterEmail.this);
-                        preferencias.salvarUsuarioPref(identificadorUsuario, usuario.getNome());
-
-                        insert();
-
-                    }else{
-                        String exception = "";
-                        try{
-                            throw task.getException();
-                        }catch(FirebaseAuthWeakPasswordException e){
-
-                            exception = "Senha muito fraca, Digite novamente";
-
-                        }catch(FirebaseAuthInvalidCredentialsException e){
-
-                            exception = "Email digitado invalido";
-
-                        }
-                        catch(FirebaseAuthUserCollisionException e){
-
-                            exception = "Email já cadastrado no sistema";
-
-                        }catch (Exception e){
-                            exception="Erro ao efetuar o cadastro";
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(RegisterEmail.this, "Erro " + exception, Toast.LENGTH_SHORT).show();
                     }
-
-                }
-            });
+                });
+            }
         }
-    }
-    public void insert(){
 
+    public void insert(){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         reference = firebaseDatabase.getReference("user");
-
 //        usuario.setId(UUID.randomUUID().toString());
-
         usuario.setNome(edtNome.getText().toString());
         usuario.setTelefone(edtTelefone.getText().toString());
-
         String id = reference.push().getKey();
-
         reference.child(id).setValue(usuario);
-
         openPrinpalView();
-
         cleanAll();
     }
+
     public void openPrinpalView(){
         Intent intent = new Intent(RegisterEmail.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
+
     public void cleanAll(){
         edtEmail.setText("");
         edtSenha.setText("");

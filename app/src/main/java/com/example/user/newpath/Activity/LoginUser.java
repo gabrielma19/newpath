@@ -37,13 +37,11 @@ public class LoginUser extends AppCompatActivity {
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnCadastrar = (Button) findViewById(R.id.btnCadastrar);
 
-
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 regitraNewUser();
             }
         });
-
         btnCadastrar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(!edtEmail.getText().toString().equals("") && !edtSenha.getText().toString().equals("")){
@@ -63,13 +61,12 @@ public class LoginUser extends AppCompatActivity {
         autentication.signInWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if(task.isSuccessful()){
                     cleanField();
                     abrirTelaPrincipal();
-                    Toast.makeText(LoginUser.this, "Funfo Legal Irmao", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginUser.this, "Bem Vindo ao NewPath", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(LoginUser.this, "Usuario não cadastrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginUser.this, "Usuario não encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -78,13 +75,10 @@ public class LoginUser extends AppCompatActivity {
         Intent intentTelaPrincioal = new Intent(LoginUser.this, MainActivity.class );
         startActivity(intentTelaPrincioal);
     }
-
     private void regitraNewUser(){
         Intent registraUser = new Intent(LoginUser.this, OptionLogin.class);
         startActivity(registraUser);
-
     }
-
     public void cleanField(){
         edtEmail.setText("");
         edtSenha.setText("");
