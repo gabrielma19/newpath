@@ -12,10 +12,13 @@ import android.widget.Toast;
 import com.example.user.newpath.DAO.FirebaseConfig;
 import com.example.user.newpath.Entity.User;
 import com.example.user.newpath.R;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Arrays;
 
 
 public class LoginUser extends AppCompatActivity {
@@ -36,6 +39,7 @@ public class LoginUser extends AppCompatActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnCadastrar = (Button) findViewById(R.id.btnCadastrar);
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

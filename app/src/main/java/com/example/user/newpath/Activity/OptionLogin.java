@@ -40,7 +40,7 @@ public class OptionLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_login);
-       
+
         btnCadastrarEmail = (Button) findViewById(R.id.btnCadastrarEmail);
         loginButton = (LoginButton) findViewById(R.id.loginButton);
 
